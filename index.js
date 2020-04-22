@@ -12,13 +12,12 @@ function Airplane(name) {
   this.name = name;
   this.isFlying = false;
 }
-Airplane.prototype.takeOff = function () {
+Airplane.prototype.takeOff = function() {
   this.isFlying = true;
 };
-Airplane.prototype.land = function () {
+Airplane.prototype.land = function() {
   this.isFlying = false;
 };
-
 
 /*
 // 👇 COMPLETE YOUR WORK BELOW 👇
@@ -39,23 +38,22 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person(name, age){
+function Person(name, age) {
   this.name = name;
   this.age = age;
   this.stomach = [];
 }
-Person.prototype.eat = function(edible){
-  if(this.stomach.length < 10){
+Person.prototype.eat = function(edible) {
+  if (this.stomach.length < 10) {
     this.stomach.push(edible);
   }
-}
-Person.prototype.poop = function(){
+};
+Person.prototype.poop = function() {
   this.stomach = [];
-}
-Person.prototype.toString = function(){
+};
+Person.prototype.toString = function() {
   return `${this.name}, ${this.age}`;
-}
-
+};
 
 /*
   TASK 2
@@ -72,15 +70,29 @@ Person.prototype.toString = function(){
 */
 
 function Car(model, milesPerGallon) {
-this.model = model;
-this.milesPerGallon = milesPerGallon;
-this.tank = 0;
-this.odometer = 0;
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
 }
 
-Car.prototype.fill = function(gallons){
-return this.tank += gallons;
-}
+Car.prototype.fill = function(gallons) {
+  return (this.tank += gallons);
+};
+Car.prototype.drive = function(distance) {
+let gallonsNeeded = distance / this.milesPerGallon;
+let drivableDistance = this.tank * this.milesPerGallon;
+
+  if(this.tank >= gallonsNeeded) {
+  this.odometer = this.odometer + distance;
+  this.tank -= gallonsNeeded;
+  } else {
+    this.tank = 0;
+    this.odometer += drivableDistance;
+    return `I ran out of fuel at ${this.odometer}`;
+  }
+
+};
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
@@ -88,44 +100,48 @@ return this.tank += gallons;
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby(attrs) {
-this.age = attrs.age;
-this.name = attrs.name;
-this.stomach = attrs.stomach;
-this.favoriteToy = attrs.favoriteToy;
-}
-Baby.prototype.eat = function(edible){
-  if(this.stomach.length < 10){
-    this.stomach.push(edible);
-  }
-}
-Baby.prototype.poop = function(){
+function Baby(name, age, favoriteToy) {
+  this.age = age;
+  this.name = name;
   this.stomach = [];
+  this.favoriteToy = favoriteToy;
 }
-Baby.prototype.toString = function(){
-  return `${this.name}, ${this.age}`;
-}
-Baby.prototype.play = function(){
 
-}
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function() {
+  return `Playing with ${this.favoriteToy}`;
+};
+
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Window Binding - If 'this' is not specified, it will refer to the window.console object, or global. 
+
+  2. Implicit Binding - Most common rule, found in 80% of use cases. When function is invoked, the left of the dot is what is refered to, ONLY applies to functions with methods.
+
+  3. Explicit Binding - Explicitly saying what 'this' should refer to. It uses .apply, .bind, and .call. 
+
+  4. New Binding - Uses 'new' keyword, and creates a new object that 'this' points to. 
+
 */
 
-
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
-if (typeof exports !== 'undefined') {
-  module.exports = module.exports || {}
-  if (Airplane) { module.exports.Airplane = Airplane }
-  if (Person) { module.exports.Person = Person }
-  if (Car) { module.exports.Car = Car }
-  if (Baby) { module.exports.Baby = Baby }
+if (typeof exports !== "undefined") {
+  module.exports = module.exports || {};
+  if (Airplane) {
+    module.exports.Airplane = Airplane;
+  }
+  if (Person) {
+    module.exports.Person = Person;
+  }
+  if (Car) {
+    module.exports.Car = Car;
+  }
+  if (Baby) {
+    module.exports.Baby = Baby;
+  }
 }
