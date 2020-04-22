@@ -78,6 +78,9 @@ this.tank = 0;
 this.odometer = 0;
 }
 
+Car.prototype.fill = function(gallons){
+return this.tank += gallons;
+}
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
@@ -85,10 +88,26 @@ this.odometer = 0;
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
+function Baby(attrs) {
+this.age = attrs.age;
+this.name = attrs.name;
+this.stomach = attrs.stomach;
+this.favoriteToy = attrs.favoriteToy;
+}
+Baby.prototype.eat = function(edible){
+  if(this.stomach.length < 10){
+    this.stomach.push(edible);
+  }
+}
+Baby.prototype.poop = function(){
+  this.stomach = [];
+}
+Baby.prototype.toString = function(){
+  return `${this.name}, ${this.age}`;
+}
+Baby.prototype.play = function(){
 
 }
-
 /* 
   TASK 4
 
